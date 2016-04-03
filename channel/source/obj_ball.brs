@@ -25,6 +25,7 @@ function obj_ball()
 		end function
 
 		object.onDrawEnd = function(screen)
+			' m.gameEngine.drawColliders(m)
 			' Uncomment if you want to view the object depth
 			' if GetGlobalAA().debug then : screen.DrawText(m.depth.ToStr(), m.x+m.radius+5, m.y-m.radius-10, &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
 		end function

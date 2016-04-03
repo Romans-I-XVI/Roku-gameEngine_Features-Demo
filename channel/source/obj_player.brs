@@ -14,6 +14,7 @@ function obj_player()
 			m.addColliderRectangle("right_leg", 10, 26, 20, 50)
 
 			body_properties = {
+				name: "body"
 				image_width: 200
 				image_height: 200
 				image_count: 8
@@ -25,6 +26,7 @@ function obj_player()
 			m.addImage(m.gameEngine.getBitmap("ball"), body_properties)
 
 			head_properties = {
+				name: "head"
 				image_width: 200
 				image_height: 200
 				image_count: 8
@@ -39,15 +41,18 @@ function obj_player()
 			m.addImage(m.gameEngine.getBitmap("ball"), head_properties)
 
 			arm_properties = body_properties
+			arm_properties.name = "left_arm"
 			arm_properties.color = &h00ff00
 			arm_properties.animation_speed = 400
 			arm_properties.scale_y = 0.5
 			arm_properties.offset_x = -32-25
 			m.addImage(m.gameEngine.getBitmap("ball"), arm_properties)
+			arm_properties.name = "right_arm"
 			arm_properties.offset_x = 32+25
 			m.addImage(m.gameEngine.getBitmap("ball"), arm_properties)
 
 			leg_properties = body_properties
+			leg_properties.name = "left_leg"
 			leg_properties.color = &h0000ff
 			leg_properties.animation_speed = 700
 			leg_properties.scale_x = 0.35
@@ -55,6 +60,7 @@ function obj_player()
 			leg_properties.offset_y = 26+25
 			leg_properties.offset_x = -20
 			m.addImage(m.gameEngine.getBitmap("ball"), leg_properties)
+			leg_properties.name = "right_leg"
 			leg_properties.offset_x = 20
 			m.addImage(m.gameEngine.getBitmap("ball"), leg_properties)
 
@@ -62,11 +68,46 @@ function obj_player()
 		end function
 
 		object.onDrawEnd = function(frame)
-			' m.gameEngine.drawColliders(m)
+			m.gameEngine.drawColliders(m)
 		end function
 
 		object.onCollision = function(collider, other_collider, other_object)
-			print other_object.name ; " " ; other_object.id ; "'s " ; other_collider ; " is in collision with my " ; collider
+			print other_object.type ; " " ; other_object.id ; "'s " ; other_collider ; " is in collision with my " ; collider
+			if other_object.type = "ball" and other_object.name <> "old_body_part"
+				properties = {}
+				properties.name = "old_body_part"
+				properties.images = []
+				properties.onUpdate = function(dt)
+					if m.x < -500 or m.y < -500 or m.y > m.gameEngine.frame.GetWidth()+500 or m.x > m.gameEngine.frame.GetHeight()+500 then
+						m.gameEngine.destroyInstance(m)
+						print "I'm destroying myself!"
+					end if
+				end function
+				for i = 0 to m.images.count()-1
+					image = m.images[i]
+					if image.name = collider then
+						properties.x = m.x
+						properties.y = m.y
+						image.alpha = 120
+						properties.images.Push(image)
+						m.removeImage(i)
+						exit for
+					end if
+				end for
+					
+				new_instance = m.gameEngine.createInstance("ball", properties)
+				new_instance.removeCollider("main_collider")
+				if m.colliders.DoesExist(collider)
+					collider = m.colliders[collider]
+					if collider.type = "circle" then
+						new_instance.addColliderCircle("main_collider", collider.radius, collider.offset_x, collider.offset_y)
+					else if collider.type = "rectangle"
+						new_instance.addColliderRectangle("main_collider", collider.offset_x, collider.offset_y, collider.width, collider.height)
+					end if
+
+					m.removeCollider(collider.name)
+				end if
+			end if
 			' if other_object.name = "ball" and collider = "body" then
 			' 	m.gameEngine.destroyInstance(other_object)
 			' 	if m.gameEngine.currentRoom.name = "room_main" then
@@ -80,33 +121,37 @@ function obj_player()
 		end function
 
 		object.onButton = function(button)
-			if button = 5 or button = 1005 then
-				m.xspeed = m.xspeed + 10
+			if button = 5 then
+				m.xspeed = 5*60
 			end if
-			if button = 4 or button = 1004 then
-				m.xspeed = m.xspeed - 10
+			if button = 4 then
+				m.xspeed = -5*60
 			end if
-			if button = 3 or button = 1003 then
-				m.yspeed = m.yspeed + 10
+			if button = 3 then
+				m.yspeed = 5*60
 			end if
-			if button = 2 or button = 1002 then
-				m.yspeed = m.yspeed - 10
+			if button = 2 then
+				m.yspeed = -5*60
+			end if
+			if button = 105 or button = 104 or button = 103 or button = 102
+				m.yspeed = 0
+				m.xspeed = 0
 			end if
 		end function
 
 		object.onUpdate = function(dt)
 			' Handle Bouncing Off Walls
 			if m.x-m.radius <= 10 then
-			    m.xspeed = abs(m.xspeed)
+			    m.x = 10+m.radius
 			end if
 			if m.x+m.radius >= m.gameEngine.frame.GetWidth()-10 then
-				m.xspeed = abs(m.xspeed)*-1
+				m.x = m.gameEngine.frame.GetWidth()-10-m.radius
 			end if
 			if m.y-m.radius <= 10 then
-			    m.yspeed = abs(m.yspeed)
+			    m.y = 10+m.radius
 			end if
 			if m.y+m.radius >= m.gameEngine.frame.GetHeight()-10 then
-				m.yspeed = abs(m.yspeed)*-1
+				m.y = m.gameEngine.frame.GetHeight()-10-m.radius
 			end if
 		end function
 

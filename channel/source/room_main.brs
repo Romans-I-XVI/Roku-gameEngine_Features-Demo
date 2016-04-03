@@ -3,7 +3,7 @@ function room_main()
 
 		room.onCreate = function()
 			m.depth = 100
-			for i = 1 to 20
+			for i = 1 to 5
 				m.gameEngine.createInstance("ball")
 			end for
 		end function
