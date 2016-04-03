@@ -9,9 +9,6 @@ function room_main()
 		end function
 
 		room.onUpdate = function(dt)
-			if m.gameEngine.instanceCount("ball") = 0 then
-				m.gameEngine.changeRoom("room_example")
-			end if
 		end function
 
 		room.onDrawBegin = function(frame)
@@ -20,7 +17,7 @@ function room_main()
 			frame.DrawRect(0, frame.GetHeight()-10, frame.GetWidth(), 10, &h676767FF)
 			frame.DrawRect(0, 0, 10, frame.GetHeight(), &h676767FF)
 			frame.DrawRect(frame.GetWidth()-10, 0, 10, frame.GetHeight(), &h676767FF)
-			if true then : frame.DrawText("room: room_main", 10, 720-10-m.gameEngine.Fonts.default.GetOneLineHeight(), &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
+			if m.gameEngine.debug then : frame.DrawText("room: room_main", 10, 720-10-m.gameEngine.Fonts.default.GetOneLineHeight(), &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
 		end function
 
 		room.onButton = function(button)

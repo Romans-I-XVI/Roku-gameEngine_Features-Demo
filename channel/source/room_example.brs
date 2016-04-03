@@ -3,8 +3,8 @@ function room_example()
 
 		room.onCreate = function()
 			m.depth = 10000
-			ball_data = {xspeed: 0, yspeed: 0,  radius: 32}
-			' m.ball = m.gameEngine.newInstance("ball", {x: m.gameEngine.frame.GetWidth()/2, y: m.gameEngine.frame.GetHeight()/2, depth: 0, data: ball_data})
+			ball_data = {x: m.gameEngine.frame.GetWidth()/2, y: m.gameEngine.frame.GetHeight()/2, depth: 0, xspeed: 0, yspeed: 0,  radius: 32}
+			m.gameEngine.createInstance("ball", ball_data)
 		end function
 
 
@@ -33,10 +33,6 @@ function room_example()
 			if button = 7 then
 				m.gameEngine.cameraFitToScreen()
 			end if
-		end function
-
-		room.onDestroy = function()
-			' m.gameEngine.removeInstance(m.ball)
 		end function
 
 	end function
