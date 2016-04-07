@@ -5,8 +5,8 @@ function obj_ball()
 
 		object.onCreate = function()
 			' This is just for if not all of the required arguments are passed, do random stuff
-			m.x = rnd(m.gameEngine.frame.GetWidth())
-			m.y = rnd(m.gameEngine.frame.GetHeight())
+			m.x = rnd(m.gameEngine.gameLayer.GetWidth())
+			m.y = rnd(m.gameEngine.gameLayer.GetHeight())
 			m.radius = 20+rnd(30)
 			m.xspeed = (rnd(10)-5)*60
 			m.yspeed = (rnd(10)-5)*60
@@ -24,10 +24,10 @@ function obj_ball()
 			' if GetGlobalAA().debug then : print m.name; " " ; m.id; "'s "; collider ; " is in a collision with " ; other_object.name ; " " ; other_object.id ; "'s " ; other_collider : end if
 		end function
 
-		object.onDrawEnd = function(screen)
+		object.onDrawEnd = function(gameLayer, guiLayer = invalid)
 			' m.gameEngine.drawColliders(m)
 			' Uncomment if you want to view the object depth
-			' if GetGlobalAA().debug then : screen.DrawText(m.depth.ToStr(), m.x+m.radius+5, m.y-m.radius-10, &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
+			' if GetGlobalAA().debug then : gameLayer.DrawText(m.depth.ToStr(), m.x+m.radius+5, m.y-m.radius-10, &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
 		end function
 
 		' Run if a button is pressed, released, or held
@@ -76,13 +76,13 @@ function obj_ball()
 			if m.x-m.radius <= 10 then
 			    m.xspeed = abs(m.xspeed)
 			end if
-			if m.x+m.radius >= m.gameEngine.frame.GetWidth()-10 then
+			if m.x+m.radius >= m.gameEngine.gameLayer.GetWidth()-10 then
 				m.xspeed = abs(m.xspeed)*-1
 			end if
 			if m.y-m.radius <= 10 then
 			    m.yspeed = abs(m.yspeed)
 			end if
-			if m.y+m.radius >= m.gameEngine.frame.GetHeight()-10 then
+			if m.y+m.radius >= m.gameEngine.gameLayer.GetHeight()-10 then
 				m.yspeed = abs(m.yspeed)*-1
 			end if
 		end function

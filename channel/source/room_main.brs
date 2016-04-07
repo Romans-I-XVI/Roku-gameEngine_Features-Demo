@@ -6,18 +6,22 @@ function room_main()
 			for i = 1 to 5
 				m.gameEngine.createInstance("ball")
 			end for
+			m.gameEngine.setBackgroundColor(&h000000FF)
 		end function
 
 		room.onUpdate = function(dt)
 		end function
 
-		room.onDrawBegin = function(frame)
-			frame.DrawObject(0, 0, m.gameEngine.getBitmap("background"))
-			frame.DrawRect(0, 0, frame.GetWidth(), 10, &h676767FF)
-			frame.DrawRect(0, frame.GetHeight()-10, frame.GetWidth(), 10, &h676767FF)
-			frame.DrawRect(0, 0, 10, frame.GetHeight(), &h676767FF)
-			frame.DrawRect(frame.GetWidth()-10, 0, 10, frame.GetHeight(), &h676767FF)
-			if m.gameEngine.debug then : frame.DrawText("room: room_main", 10, 720-10-m.gameEngine.Fonts.default.GetOneLineHeight(), &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
+		room.onDrawBegin = function(gameLayer)
+			gameLayer.DrawObject(0, 0, m.gameEngine.getBitmap("background"))
+			gameLayer.DrawRect(0, 0, gameLayer.GetWidth(), 10, &h676767FF)
+			gameLayer.DrawRect(0, gameLayer.GetHeight()-10, gameLayer.GetWidth(), 10, &h676767FF)
+			gameLayer.DrawRect(0, 0, 10, gameLayer.GetHeight(), &h676767FF)
+			gameLayer.DrawRect(gameLayer.GetWidth()-10, 0, 10, gameLayer.GetHeight(), &h676767FF)
+		end function
+
+		room.onDrawGui = function(screen)
+			if m.gameEngine.debug then : screen.DrawText("room: room_main", 10, 720-10-m.gameEngine.Fonts.default.GetOneLineHeight(), &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
 		end function
 
 		room.onButton = function(button)
