@@ -3,7 +3,7 @@ function obj_ball(object)
 	' ################ What we are doing here is modifying the empty object with our ball specific function overrides ###################
 
 	object.onCreate = function(args)
-		canvas = m.gameEngine.getCanvas()
+		canvas = m.game.getCanvas()
 		' This is just for if not all of the required arguments are passed, do random stuff
 		m.x = rnd(canvas.GetWidth())
 		m.y = rnd(canvas.GetHeight())
@@ -13,15 +13,15 @@ function obj_ball(object)
 		m.depth = 0
 
 		m.addColliderCircle("main_collider", m.radius, 0, 0)
-		region = CreateObject("roRegion", m.gameEngine.getBitmap("ball"), 0, 0, 200, 200)
+		region = CreateObject("roRegion", m.game.getBitmap("ball"), 0, 0, 200, 200)
 		m.addImage(region, {scale_x: m.radius/32, scale_y: m.radius/32, origin_x: 100, origin_y: 100})
 
 	end function
 
 	object.onDrawEnd = function(canvas)
 		' Uncomment if you want to view the object depth and colliders
-		' m.gameEngine.drawColliders(m)
-		' if m.gameEngine.debug then : canvas.DrawText(m.depth.ToStr(), m.x+m.radius+5, m.y-m.radius-10, &hFFFFFFFF, m.gameEngine.Fonts.default) : end if
+		' m.game.drawColliders(m)
+		' if m.game.debug then : canvas.DrawText(m.depth.ToStr(), m.x+m.radius+5, m.y-m.radius-10, &hFFFFFFFF, m.game.Fonts.default) : end if
 	end function
 
 	' Run if a button is pressed, released, or held
@@ -44,7 +44,7 @@ function obj_ball(object)
 
 	' This is run on every frame
 	object.onUpdate = function(dt)
-		canvas = m.gameEngine.getCanvas()
+		canvas = m.game.getCanvas()
 		' Handle Movement
 		if m.x-m.radius <= 10 then
 		    m.xspeed = abs(m.xspeed)

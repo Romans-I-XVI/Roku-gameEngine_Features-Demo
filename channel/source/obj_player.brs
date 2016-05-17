@@ -1,6 +1,6 @@
 function obj_player(object)
 	object.onCreate = function(args)
-		canvas = m.gameEngine.getCanvas()
+		canvas = m.game.getCanvas()
 		m.x = canvas.GetWidth()/2
 		m.y = canvas.GetHeight()/2
 		m.depth = -100
@@ -23,7 +23,7 @@ function obj_player(object)
 			origin_y: 100
 			color: &hFF0000
 		}
-		m.addImage(m.gameEngine.getBitmap("ball"), body_properties)
+		m.addImage(m.game.getBitmap("ball"), body_properties)
 
 		head_properties = {
 			name: "head"
@@ -38,7 +38,7 @@ function obj_player(object)
 			origin_y: 100
 			color: &hFFFF00
 		}
-		m.addImage(m.gameEngine.getBitmap("ball"), head_properties)
+		m.addImage(m.game.getBitmap("ball"), head_properties)
 
 		arm_properties = {
 			name: "left_arm"
@@ -53,10 +53,10 @@ function obj_player(object)
 			origin_y: 100
 			color: &h00FF00
 		}
-		m.addImage(m.gameEngine.getBitmap("ball"), arm_properties)
+		m.addImage(m.game.getBitmap("ball"), arm_properties)
 		arm_properties.name = "right_arm"
 		arm_properties.offset_x = 32+25
-		m.addImage(m.gameEngine.getBitmap("ball"), arm_properties)
+		m.addImage(m.game.getBitmap("ball"), arm_properties)
 
 		leg_properties = {
 			name: "left_leg"
@@ -72,12 +72,12 @@ function obj_player(object)
 			origin_y: 100
 			color: &h0000FF
 		}
-		m.addImage(m.gameEngine.getBitmap("ball"), leg_properties)
+		m.addImage(m.game.getBitmap("ball"), leg_properties)
 		leg_properties.name = "right_leg"
 		leg_properties.offset_x = 20
-		m.addImage(m.gameEngine.getBitmap("ball"), leg_properties)
+		m.addImage(m.game.getBitmap("ball"), leg_properties)
 
-		m.gameEngine.canvasSetFollow(m)
+		m.game.canvasSetFollow(m)
 	end function
 
 	object.onCollision = function(collider, other_collider, other_object)
@@ -104,8 +104,8 @@ function obj_player(object)
 	end function
 
 	object.onUpdate = function(dt)
-		canvas = m.gameEngine.getCanvas()
-		' m.gameEngine.drawColliders(m) 'Uncomment this to show colliders for the player.
+		canvas = m.game.getCanvas()
+		' m.game.drawColliders(m) 'Uncomment this to show colliders for the player.
 		' Handle Bouncing Off Walls
 		if m.x-m.radius <= 10 then
 		    m.x = 10+m.radius
