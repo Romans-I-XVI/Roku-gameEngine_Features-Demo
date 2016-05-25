@@ -14,7 +14,6 @@ function obj_player(object)
 		m.addColliderRectangle("right_leg", 10, 26, 20, 50)
 
 		body_properties = {
-			name: "body"
 			image_width: 200
 			image_height: 200
 			image_count: 8
@@ -26,7 +25,6 @@ function obj_player(object)
 		m.addImage(m.game.getBitmap("ball"), body_properties)
 
 		head_properties = {
-			name: "head"
 			image_width: 200
 			image_height: 200
 			image_count: 8
@@ -41,7 +39,6 @@ function obj_player(object)
 		m.addImage(m.game.getBitmap("ball"), head_properties)
 
 		arm_properties = {
-			name: "left_arm"
 			image_width: 200
 			image_height: 200
 			image_count: 8
@@ -54,12 +51,10 @@ function obj_player(object)
 			color: &h00FF00
 		}
 		m.addImage(m.game.getBitmap("ball"), arm_properties)
-		arm_properties.name = "right_arm"
 		arm_properties.offset_x = 32+25
 		m.addImage(m.game.getBitmap("ball"), arm_properties)
 
 		leg_properties = {
-			name: "left_leg"
 			image_width: 200
 			image_height: 200
 			image_count: 8
@@ -73,7 +68,6 @@ function obj_player(object)
 			color: &h0000FF
 		}
 		m.addImage(m.game.getBitmap("ball"), leg_properties)
-		leg_properties.name = "right_leg"
 		leg_properties.offset_x = 20
 		m.addImage(m.game.getBitmap("ball"), leg_properties)
 
