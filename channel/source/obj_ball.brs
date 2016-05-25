@@ -30,14 +30,14 @@ function obj_ball(object)
 		' if button = 9 or button = 1009 then
 		' 	m.radius = m.radius+1
 		' 	m.colliders.main_collider.radius = m.radius
-		' 	m.images["0"].scale_x = 1*(m.radius/32)
-		' 	m.images["0"].scale_y = 1*(m.radius/32)
+		' 	m.getImage().scale_x = 1*(m.radius/32)
+		' 	m.getImage().scale_y = 1*(m.radius/32)
 		' end if
 		' if (button = 8 or button = 1008) and m.radius > 1 then
 		' 	m.radius = m.radius-1
 		' 	m.colliders.main_collider.radius = m.radius
-		' 	m.images["0"].scale_x = 1*(m.radius/32)
-		' 	m.images["0"].scale_y = 1*(m.radius/32)
+		' 	m.getImage().scale_x = 1*(m.radius/32)
+		' 	m.getImage().scale_y = 1*(m.radius/32)
 		' end if
 
 	end function
